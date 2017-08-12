@@ -42,7 +42,7 @@ class Student extends Person{
 }
 
 class Teacher extends Person{
-    constructor(id,name,age,classes){
+    constructor(id,name,age,classes = []){
         super(id,name,age);
         this.class = classes;
     }
@@ -56,7 +56,9 @@ class Teacher extends Person{
         else return `${super.introduce()} I am a Teacher. I don't teach ${student.name}.`
     }
     isTeaching(student){
-        return this.class.isIn(student);
+        return this.class.some(klass =>{
+            return klass.isIn(student);
+    })
     }
 }
 
@@ -67,7 +69,7 @@ let student_1 = new Student(10,'Tom',21,01);
 let student_2 = new Student(11,'Jerry',21,02);
 let student_3 = new Student(12,'Cruce',21,01);
 let teacher_1 = new Teacher(00,'Green',35);
-let teacher_2 = new Teacher(01,'Bluce',45,[01,02]);
+let teacher_2 = new Teacher(01,'Bluce',45,[klass_1,klass_2]);
 
 
 console.log(student_1.introduce());
@@ -85,3 +87,4 @@ klass_2.appendMember(student_3);
 console.log(student_3.introduce());
 console.log(student_1.introduce());
 console.log(teacher_1.isTeaching(student_1));
+console.log(teacher_2.isTeaching(student_1));
